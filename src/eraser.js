@@ -9,8 +9,16 @@ class Eraser {
     this.#shouldErase = false;
   }
 
+  get shouldErase() {
+    return this.#shouldErase;
+  }
+
+  get coordinates() {
+    return this.#coordinates;
+  }
+
   toggle() {
-    this.#shouldErase != this.#shouldErase;
+    this.#shouldErase = !this.#shouldErase;
   }
 
   up() {

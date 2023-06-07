@@ -9,8 +9,16 @@ class Pencil {
     this.#shouldDraw = false;
   }
 
+  get shouldDraw() {
+    return this.#shouldDraw;
+  }
+
+  get coordinates() {
+    return this.#coordinates;
+  }
+
   toggle() {
-    this.#shouldDraw != this.#shouldDraw;
+    this.#shouldDraw = !this.#shouldDraw;
   }
 
   up() {
