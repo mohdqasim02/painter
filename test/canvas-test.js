@@ -32,7 +32,7 @@ describe('canvas', () => {
          const canvas = new Canvas({ height: 2, width: 2 });
          canvas.draw({ x: 1, y: 1 }, 'a');
          canvas.render(fakeRender);
-         fakeRender.wasCalledOnce('  \n a');
+         assert.ok(fakeRender.wasCalledOnce('  \n a'));
       });
    });
 });
