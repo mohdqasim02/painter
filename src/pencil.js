@@ -1,0 +1,37 @@
+class Pencil {
+  #coordinates;
+  #shouldDraw;
+  #character;
+
+  constructor(startingPostition, characterToDraw) {
+    this.#coordinates = { ...startingPostition };
+    this.#character = characterToDraw;
+    this.#shouldDraw = false;
+  }
+
+  toggle() {
+    this.#shouldDraw != this.#shouldDraw;
+  }
+
+  up() {
+    this.#coordinates.y += 1;
+  }
+
+  down() {
+    this.#coordinates.y -= 1;
+  }
+
+  left() {
+    this.#coordinates.x -= 2;
+  }
+
+  right() {
+    this.#coordinates.x += 2;
+  }
+
+  draw(canvas) {
+    canvas.draw(this.#coordinates, this.#character);
+  }
+}
+
+exports.Pencil = Pencil;
