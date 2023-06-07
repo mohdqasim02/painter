@@ -1,45 +1,46 @@
 class Eraser {
-  #coordinates;
-  #shouldErase;
-  #character;
+   #coordinates;
+   #shouldErase;
+   #character;
 
-  constructor(startingPostition, eraserCharacter) {
-    this.#coordinates = { ...startingPostition };
-    this.#character = eraserCharacter;
-    this.#shouldErase = false;
-  }
+   constructor(startingPostition, eraserCharacter) {
+      this.#coordinates = { ...startingPostition };
+      this.#character = eraserCharacter;
+      this.#shouldErase = false;
+   }
 
-  get shouldErase() {
-    return this.#shouldErase;
-  }
+   get shouldErase() {
+      return this.#shouldErase;
+   }
 
-  get coordinates() {
-    return this.#coordinates;
-  }
+   get coordinates() {
+      return this.#coordinates;
+   }
 
-  toggle() {
-    this.#shouldErase = !this.#shouldErase;
-  }
+   toggle() {
+      this.#shouldErase = !this.#shouldErase;
+   }
 
-  up() {
-    this.#coordinates.y += 1;
-  }
+   up() {
+      this.#coordinates.y -= 1;
+   }
 
-  down() {
-    this.#coordinates.y -= 1;
-  }
+   down() {
+      this.#coordinates.y += 1;
+   }
 
-  left() {
-    this.#coordinates.x -= 2;
-  }
+   left() {
+      this.#coordinates.x -= 2;
+   }
 
-  right() {
-    this.#coordinates.x += 2;
-  }
+   right() {
+      this.#coordinates.x += 2;
+   }
 
-  erase(canvas) {
-    canvas.draw(this.#coordinates, this.#character);
-  }
+   draw(canvas) {
+      if (this.#shouldErase)
+         canvas.draw(this.#coordinates, this.#character);
+   }
 }
 
 exports.Eraser = Eraser;

@@ -1,45 +1,46 @@
 class Pencil {
-  #coordinates;
-  #shouldDraw;
-  #character;
+   #coordinates;
+   #shouldDraw;
+   #character;
 
-  constructor(startingPostition, characterToDraw) {
-    this.#coordinates = { ...startingPostition };
-    this.#character = characterToDraw;
-    this.#shouldDraw = false;
-  }
+   constructor(startingPostition, characterToDraw) {
+      this.#coordinates = { ...startingPostition };
+      this.#character = characterToDraw;
+      this.#shouldDraw = false;
+   }
 
-  get shouldDraw() {
-    return this.#shouldDraw;
-  }
+   get shouldDraw() {
+      return this.#shouldDraw;
+   }
 
-  get coordinates() {
-    return this.#coordinates;
-  }
+   get coordinates() {
+      return this.#coordinates;
+   }
 
-  toggle() {
-    this.#shouldDraw = !this.#shouldDraw;
-  }
+   toggle() {
+      this.#shouldDraw = !this.#shouldDraw;
+   }
 
-  up() {
-    this.#coordinates.y += 1;
-  }
+   up() {
+      this.#coordinates.y -= 1;
+   }
 
-  down() {
-    this.#coordinates.y -= 1;
-  }
+   down() {
+      this.#coordinates.y += 1;
+   }
 
-  left() {
-    this.#coordinates.x -= 2;
-  }
+   left() {
+      this.#coordinates.x -= 2;
+   }
 
-  right() {
-    this.#coordinates.x += 2;
-  }
+   right() {
+      this.#coordinates.x += 2;
+   }
 
-  draw(canvas) {
-    canvas.draw(this.#coordinates, this.#character);
-  }
+   draw(canvas) {
+      if (this.#shouldDraw)
+         canvas.draw(this.#coordinates, this.#character);
+   }
 }
 
 exports.Pencil = Pencil;

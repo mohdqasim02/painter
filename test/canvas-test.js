@@ -20,19 +20,21 @@ const createSpyFunction = () => {
    return fn;
 }
 
-let fakeRender;
+let fakeRender = {};
 
 describe('canvas', () => {
    beforeEach(() => {
-      fakeRender = createSpyFunction();
+      fakeRender.log = createSpyFunction();
+      fakeRender.clear = createSpyFunction();
    });
 
    describe('draw', () => {
       it('should draw char on given coordinate of the canvas', () => {
-         const canvas = new Canvas({ height: 2, width: 2 });
+         const canvas = new Canvas({ height: 2, width: 2 }, 0);
          canvas.draw({ x: 1, y: 1 }, 'a');
          canvas.render(fakeRender);
-         assert.ok(fakeRender.wasCalledOnce('  \n a'));
+         assert.ok(fakeRender.log.wasCalledOnce('  \n a'));
+         assert.ok(fakeRender.clear.wasCalledOnce());
       });
    });
 });
