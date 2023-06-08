@@ -1,9 +1,9 @@
+const { Tool } = require("./src/tool");
+const { Screen } = require("./src/screen");
 const { Cursor } = require("./src/cursor");
 const { Position } = require("./src/position");
 const { Controller } = require("./src/controller");
-const { Tool } = require("./src/tool");
 const { ScreenLayer } = require("./src/screen-layer");
-const { Screen } = require("./src/screen");
 
 const MARGIN = 5;
 const ICON = "▴";

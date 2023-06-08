@@ -38,13 +38,14 @@ class Controller {
       }
    }
 
-   titleBar(x, y) {
-      return `\tx:${x} y:${y}`;
+   hideCursor() {
+      this.#io.stdout.write('\u001B[?25l');
    }
 
    start() {
       const inputStream = this.#io.stdin.setRawMode(true);
       inputStream.setEncoding('utf-8');
+      this.hideCursor();
 
       let currentTool = this.#chooseTool('e');
 
@@ -55,14 +56,13 @@ class Controller {
             currentTool = this.#chooseTool(keyPressed);
 
          this.#moveCursor(keyPressed);
-         const { x, y } = this.#cursor.coordinates;
          currentTool.draw(this.#cursor.coordinates, this.#screen.canvas);
 
          this.#screen.overlay.reset();
-         this.#screen.overlay.put({ x, y }, currentTool.icon)
+         this.#screen.overlay.put(this.#cursor.coordinates, currentTool.icon)
 
          this.#screen.render(console);
-         this.#screen.title(console, this.titleBar(x, y));
+         this.#screen.title(console, this.#cursor.toString());
 
          if (inputStream._readableState.destroyed)
             console.log('ended')

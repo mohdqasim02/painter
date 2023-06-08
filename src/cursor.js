@@ -34,6 +34,11 @@ class Cursor {
   get coordinates() {
     return this.#position.coordinates();
   }
+
+  toString() {
+    const { x, y } = this.#position.coordinates();
+    return `cursor: (${x},${y})`;
+  }
 }
 
 exports.Cursor = Cursor;
