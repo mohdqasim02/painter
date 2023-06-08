@@ -37,9 +37,9 @@ class Pencil {
       this.#coordinates.x += 2;
    }
 
-   draw(canvas) {
+   draw(x, y, canvas) {
       if (this.#shouldDraw)
-         canvas.draw(this.#coordinates, this.#character);
+         canvas.draw({ x, y }, this.#character);
    }
 }
 

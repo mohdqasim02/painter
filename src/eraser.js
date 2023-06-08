@@ -37,9 +37,9 @@ class Eraser {
       this.#coordinates.x += 2;
    }
 
-   draw(canvas) {
+   draw(x, y, canvas) {
       if (this.#shouldErase)
-         canvas.draw(this.#coordinates, this.#character);
+         canvas.draw({ x, y }, this.#character);
    }
 }
 

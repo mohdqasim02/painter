@@ -28,6 +28,10 @@ class Position {
     const { verticalStep } = this.#steps;
     return new Position(this.#x, this.#y + verticalStep, this.#steps);
   }
+
+  coordinates() {
+    return { x: this.#x, y: this.#y };
+  }
 }
 
 exports.Position = Position;

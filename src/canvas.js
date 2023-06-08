@@ -14,7 +14,7 @@ class Canvas {
    }
 
    #isCursorInsideCanvas({ x, y }) {
-      return (x >= 0 && y >= 0) && (x < this.#height && y < this.#width);
+      return (x >= 0 && y >= 0) && (y < this.#height && x < this.#width);
    }
 
    draw(coordinates, charToDraw) {

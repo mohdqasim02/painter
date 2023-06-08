@@ -7,11 +7,13 @@ const TOOLSKEYWORD = ['p', 'e'];
 class Controller {
    #io;
    #tools;
+   #cursor;
    #canvas;
 
-   constructor(tools, canvas, io) {
+   constructor(tools, canvas, cursor, io) {
       this.#io = io;
       this.#canvas = canvas;
+      this.#cursor = cursor;
       this.#tools = { ...tools };
    }
 
@@ -23,15 +25,15 @@ class Controller {
       return toolsKeyWord[keyPressed];
    }
 
-   #moveTool(currentTool, keyPressed) {
+   #moveCursor(keyPressed) {
       switch (keyPressed) {
-         case 'j': currentTool.down();
+         case 'j': this.#cursor.down();
             break;
-         case 'k': currentTool.up();
+         case 'k': this.#cursor.up();
             break;
-         case 'l': currentTool.right();
+         case 'l': this.#cursor.right();
             break;
-         case 'h': currentTool.left();
+         case 'h': this.#cursor.left();
             break;
       }
    }
@@ -52,9 +54,9 @@ class Controller {
          if (TOOLSKEYWORD.includes(keyPressed))
             currentTool = this.#chooseTool(keyPressed);
 
-         this.#moveTool(currentTool, keyPressed);
-         currentTool.draw(this.#canvas);
-         const { x, y } = currentTool.coordinates;
+         this.#moveCursor(keyPressed);
+         const { x, y } = this.#cursor.coordinates;
+         currentTool.draw(x, y, this.#canvas);
          this.#canvas.render(console);
          this.#canvas.title(console, this.titleBar(x, y));
          this.#io.stdout.cursorTo(x, y);

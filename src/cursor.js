@@ -31,8 +31,8 @@ class Cursor {
     return this.#icon;
   }
 
-  get position() {
-    return this.#position;
+  get coordinates() {
+    return this.#position.coordinates();
   }
 }
 
