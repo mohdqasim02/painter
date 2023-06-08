@@ -4,8 +4,8 @@ class Canvas {
    #width;
 
    constructor(size, margin) {
-      this.#height = size.height - margin;
       this.#width = size.width - margin;
+      this.#height = size.height - margin;
       this.#grid = this.#generateGrid(this.#height, this.#width);
    }
 
@@ -13,10 +13,15 @@ class Canvas {
       return new Array(height).fill().map(() => new Array(width).fill(' '))
    }
 
-   draw({ x, y }, char) {
-      if (x < 0 || y < 0) return;
-      if (x >= this.#height || y >= this.#width) return;
-      this.#grid[y][x] = char;
+   #isCursorInsideCanvas({ x, y }) {
+      return (x >= 0 && y >= 0) && (x < this.#height && y < this.#width);
+   }
+
+   draw(coordinates, charToDraw) {
+      const { x, y } = coordinates;
+
+      if (this.#isCursorInsideCanvas(coordinates))
+         this.#grid[y][x] = charToDraw;
    }
 
    title(renderer, title) {
