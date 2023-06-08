@@ -56,7 +56,7 @@ class Controller {
 
          this.#moveCursor(keyPressed);
          const { x, y } = this.#cursor.coordinates;
-         currentTool.draw(x, y, this.#canvas);
+         currentTool.draw(this.#cursor.coordinates, this.#canvas);
          this.#canvas.render(console);
          this.#canvas.title(console, this.titleBar(x, y));
          this.#io.stdout.cursorTo(x, y);
