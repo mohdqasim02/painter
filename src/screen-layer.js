@@ -13,6 +13,10 @@ class ScreenLayer {
       return new Array(height).fill().map(() => new Array(width).fill(' '))
    }
 
+   reset() {
+      this.#pixels = this.#generateGrid(this.#height, this.#width);
+   }
+
    put({ x, y }, glyph) {
       if (x < 0 || y < 0) return;
       if (x >= this.#height || y >= this.#width) return;

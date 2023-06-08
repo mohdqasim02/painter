@@ -1,8 +1,9 @@
-const { Canvas } = require("./src/canvas");
 const { Cursor } = require("./src/cursor");
 const { Position } = require("./src/position");
 const { Controller } = require("./src/controller");
 const { Tool } = require("./src/tool");
+const { ScreenLayer } = require("./src/screen-layer");
+const { Screen } = require("./src/screen");
 
 const MARGIN = 5;
 const ICON = "▴";
@@ -15,13 +16,16 @@ const main = () => {
    const position = new Position(0, 0, steps);
    const cursor = new Cursor(position, ICON);
 
-   const pencil = new Tool("pencil", "P", "֍");
-   const eraser = new Tool("eraser", "E", " ");
+   const pencil = new Tool("pencil", "🖍", "֍");
+   const eraser = new Tool("eraser", "🧽", " ");
 
    const [width, height] = process.stdout.getWindowSize();
-   const canvas = new Canvas({ height, width }, MARGIN);
 
-   const controller = new Controller({ pencil, eraser }, canvas, cursor, process);
+   const canvas = new ScreenLayer({ height, width }, MARGIN);
+   const overlay = new ScreenLayer({ height, width }, MARGIN);
+   const screen = new Screen(canvas, overlay);
+
+   const controller = new Controller({ pencil, eraser }, screen, cursor, process);
    controller.start();
 }
 

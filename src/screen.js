@@ -7,6 +7,14 @@ class Screen {
       this.#overlay = overlay;
    }
 
+   get canvas() {
+      return this.#pixels;
+   }
+
+   get overlay() {
+      return this.#overlay;
+   }
+
    #merge() {
       return this.#overlay.merge(this.#pixels);
    }

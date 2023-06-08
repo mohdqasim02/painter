@@ -29,7 +29,7 @@ class Tool {
 
    draw(coordinate, canvas) {
       if (this.#shouldDraw)
-         canvas.draw(coordinate, this.#character);
+         canvas.put(coordinate, this.#character);
    }
 }
 

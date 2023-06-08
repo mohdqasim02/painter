@@ -8,13 +8,13 @@ class Controller {
    #io;
    #tools;
    #cursor;
-   #canvas;
+   #screen;
 
-   constructor(tools, canvas, cursor, io) {
+   constructor(tools, screen, cursor, io) {
       this.#io = io;
-      this.#canvas = canvas;
+      this.#screen = screen;
       this.#cursor = cursor;
-      this.#tools = { ...tools };
+      this.#tools = tools;
    }
 
    #chooseTool(keyPressed) {
@@ -56,10 +56,13 @@ class Controller {
 
          this.#moveCursor(keyPressed);
          const { x, y } = this.#cursor.coordinates;
-         currentTool.draw(this.#cursor.coordinates, this.#canvas);
-         this.#canvas.render(console);
-         this.#canvas.title(console, this.titleBar(x, y));
-         this.#io.stdout.cursorTo(x, y);
+         currentTool.draw(this.#cursor.coordinates, this.#screen.canvas);
+
+         this.#screen.overlay.reset();
+         this.#screen.overlay.put({ x, y }, currentTool.icon)
+
+         this.#screen.render(console);
+         this.#screen.title(console, this.titleBar(x, y));
 
          if (inputStream._readableState.destroyed)
             console.log('ended')
