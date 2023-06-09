@@ -6,18 +6,17 @@ const { Controller } = require("./src/controller");
 const { ScreenLayer } = require("./src/screen-layer");
 
 const MARGIN = 5;
-const ICON = "▴";
 
 const main = () => {
    const steps = {
       verticalStep: 1,
       horizontalStep: 2
    };
-   const position = new Position(0, 0, steps);
-   const cursor = new Cursor(position, ICON);
+   const position = new Position(2, 1, steps);
+   const cursor = new Cursor(position, "▴");
 
    const pencil = new Tool("pencil", "🖍", "֍");
-   const eraser = new Tool("eraser", "🧽", " ");
+   const eraser = new Tool("eraser", "🌫️", " ");
 
    const [width, height] = process.stdout.getWindowSize();
 

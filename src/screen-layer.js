@@ -18,8 +18,8 @@ class ScreenLayer {
    }
 
    put({ x, y }, glyph) {
-      if (x < 0 || y < 0) return;
-      if (x >= this.#height || y >= this.#width) return;
+      if (x < 1 || y < 1) return;
+      if (x >= this.#width - 1 || y >= this.#height - 1) return;
       this.#pixels[y][x] = glyph;
    }
 
@@ -30,6 +30,11 @@ class ScreenLayer {
          row.forEach((pixel, pixelIndex) => {
             const pixelToPut = pixel !== ' ' ? pixel : otherLayer.#pixels[rowIndex][pixelIndex];
             mergedLayer[rowIndex][pixelIndex] = pixelToPut;
+
+            if (rowIndex === 0 || rowIndex === this.#height - 1)
+               mergedLayer[rowIndex][pixelIndex] = "~";
+            if (pixelIndex === 0 || pixelIndex === this.#width - 1)
+               mergedLayer[rowIndex][pixelIndex] = "|";
          });
       });
 
