@@ -3,6 +3,7 @@ const VALIDKEYS = {
    PENCIL: 'p',
    ERASER: "e",
    TOGGLE: "t",
+   TOOLS: ['p', 'e'],
    MOVES: {
       j: 'down',
       k: 'up',
@@ -16,6 +17,7 @@ class Controller {
    #tools;
    #cursor;
    #screen;
+   #currentTool;
 
    constructor(tools, screen, cursor, io) {
       this.#io = io;
@@ -30,7 +32,7 @@ class Controller {
          [VALIDKEYS.ERASER]: this.#tools.eraser,
       }
 
-      return toolsKeyWord[keyPressed];
+      this.#currentTool = toolsKeyWord[keyPressed];
    }
 
    #moveCursor(keyPressed) {
@@ -51,28 +53,44 @@ class Controller {
       return inputStream;
    }
 
-   #evaluateInput(keyPressed, inputStream, currentTool) {
-      if (keyPressed === VALIDKEYS.QUIT) inputStream.destroy();
-      if (keyPressed === VALIDKEYS.TOGGLE) currentTool.toggle();
-      if ([VALIDKEYS.PENCIL, VALIDKEYS.ERASER].includes(keyPressed))
-         currentTool = this.#chooseTool(keyPressed);
+   #usage() {
+      const message = "Instructions:" +
+         '\n\t' + "Pressing the following keys will do:" +
+         '\n\t' + `q: to quit the app ` +
+         '\n\t' + `p: to select pencil ${this.#tools.pencil.icon}` +
+         '\n\t' + `e: to select eraser ${this.#tools.eraser.icon}` +
+         '\n\t' + "t: to toggle the current tool" +
+         '\n\t' + "j: to move the tool down" +
+         '\n\t' + "k: to move the tool up" +
+         '\n\t' + "h: to move the tool left" +
+         '\n\t' + "l: to move the tool right";
 
-      this.#moveCursor(keyPressed);
-      currentTool.draw(this.#cursor.coordinates, this.#screen.canvas);
+      return message;
+   }
+
+   #evaluateInput(keyPressed, inputStream) {
+      if (keyPressed === VALIDKEYS.QUIT) inputStream.destroy();
+      else if (keyPressed === VALIDKEYS.TOGGLE) this.#currentTool.toggle();
+      else if (VALIDKEYS.TOOLS.includes(keyPressed)) this.#chooseTool(keyPressed);
+      else {
+         this.#moveCursor(keyPressed);
+         this.#currentTool.draw(this.#cursor.coordinates, this.#screen.canvas);
+      }
 
       this.#screen.overlay.reset();
-      this.#screen.overlay.put(this.#cursor.coordinates, currentTool.icon);
+      this.#screen.overlay.put(this.#cursor.coordinates, this.#currentTool.icon);
 
       this.#screen.render(console);
       this.#screen.title(console, this.#cursor.toString());
+      this.#screen.title(console, this.#usage());
    }
 
    start() {
-      let currentTool = this.#chooseTool('e');
+      this.#chooseTool('p');
       const inputStream = this.#setupInputStream();
 
       inputStream.on('data', (keyPressed) => {
-         this.#evaluateInput(keyPressed, inputStream, currentTool);
+         this.#evaluateInput(keyPressed, inputStream);
       });
    }
 }

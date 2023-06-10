@@ -5,7 +5,7 @@ const { Position } = require("./src/position");
 const { Controller } = require("./src/controller");
 const { ScreenLayer } = require("./src/screen-layer");
 
-const MARGIN = 5;
+const MARGIN = 12;
 
 const main = () => {
    const steps = {
